@@ -6,6 +6,10 @@ from dataclasses import dataclass
 from mjlab.envs import ManagerBasedRlEnvCfg
 from mjlab.rl import RslRlBaseRunnerCfg
 
+# Impor konfigurasi task booster_k1 Anda
+from mjlab.tasks.booster_k1.env_cfg import BoosterK1EnvCfg, BoosterK1PlayEnvCfg
+from mjlab.tasks.booster_k1.rl_cfg import BoosterK1PPORunnerCfg
+
 
 @dataclass
 class _TaskCfg:
@@ -69,3 +73,17 @@ def load_runner_cls(task_name: str) -> type | None:
   If None, the default OnPolicyRunner will be used.
   """
   return _REGISTRY[task_name].runner_cls
+
+
+# ==========================================
+# Pendaftaran Task Bawaan & Kustom Anda
+# ==========================================
+
+# Mendaftarkan task robot Booster K1
+register_mjlab_task(
+    task_id="Mjlab-Booster-K1",
+    env_cfg=BoosterK1EnvCfg(),
+    play_env_cfg=BoosterK1PlayEnvCfg(),
+    rl_cfg=BoosterK1PPORunnerCfg(),
+    runner_cls=None,
+)
